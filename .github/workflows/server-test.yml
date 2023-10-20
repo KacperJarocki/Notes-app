@@ -1,0 +1,54 @@
+name: Spring Boot Tests with Database
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+      - prod
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:13
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: testdb
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Build and test Spring Boot application
+        run: |
+          ./gradlew clean build
+        working-directory: ./server
+
+      - name: Run Spring Boot tests with database
+        run: |
+          ./gradlew bootRun
+        working-directory: ./server
+
+      - name: Run tests
+        run: |
+          sleep 30  # Adjust the sleep time as needed
+          ./gradlew test
+        working-directory: ./server
+
+    env:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/testdb
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
