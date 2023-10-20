@@ -28,8 +28,7 @@ services:
     build: ./frontend
     depends_on:
       - backend
-    environment:
-      - REACT_APP_API_URL=http://localhost/api
+
   nginx:
     image: nginx:alpine
     volumes:
