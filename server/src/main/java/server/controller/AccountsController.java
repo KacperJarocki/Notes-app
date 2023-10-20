@@ -1,12 +1,12 @@
-package Projektbdio.controller;
+package server.controller;
 
-import Projektbdio.auth.AuthenticationService;
-import Projektbdio.model.Accounts;
-import Projektbdio.service.AccountsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import server.auth.AuthenticationService;
+import server.model.Accounts;
+import server.service.AccountsService;
 
 import java.util.List;
 

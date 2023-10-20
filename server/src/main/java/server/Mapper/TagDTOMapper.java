@@ -1,8 +1,8 @@
-package Projektbdio.Mapper;
+package server.Mapper;
 
-import Projektbdio.DTO.TagDTO;
-import Projektbdio.model.Tags;
 import org.springframework.stereotype.Service;
+import server.DTO.TagDTO;
+import server.model.Tags;
 
 import java.util.function.Function;
 

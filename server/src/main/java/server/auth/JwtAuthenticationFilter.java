@@ -1,4 +1,4 @@
-package Projektbdio.auth;
+package server.auth;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

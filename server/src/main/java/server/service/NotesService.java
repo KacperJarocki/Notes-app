@@ -1,21 +1,21 @@
-package Projektbdio.service;
+package server.service;
 
-import Projektbdio.DTO.TagDTO;
-import Projektbdio.Mapper.NotesDTOMapper;
-import Projektbdio.DTO.NotesDTO;
-import Projektbdio.exceptions.UrlRequestException;
-import Projektbdio.model.Accounts;
-import Projektbdio.model.Category;
-import Projektbdio.model.Notes;
-import Projektbdio.model.Tags;
-import Projektbdio.repository.AccountsRepository;
-import Projektbdio.repository.CategoryRepository;
-import Projektbdio.repository.NotesRepository;
-import Projektbdio.repository.TagsRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import server.DTO.NotesDTO;
+import server.DTO.TagDTO;
+import server.Mapper.NotesDTOMapper;
+import server.exceptions.UrlRequestException;
+import server.model.Accounts;
+import server.model.Category;
+import server.model.Notes;
+import server.model.Tags;
+import server.repository.AccountsRepository;
+import server.repository.CategoryRepository;
+import server.repository.NotesRepository;
+import server.repository.TagsRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -35,10 +35,11 @@ public class NotesService {
     private final TagsRepository tagsRepository;
 
     public List<NotesDTO> getNotes(String name) {
-        return notesRepository.findNotesByAccounts_NameUser(name)
+        List<NotesDTO> collect = notesRepository.findNotesByAccounts_NameUser(name)
                 .stream()
                 .map(notesDTOMapper)
                 .collect(Collectors.toList());
+        return collect;
     }
 
     public NotesDTO getNote(int id) {
@@ -60,11 +61,11 @@ public class NotesService {
         note.setTitle(noteDTO.title());
         note.setContent(noteDTO.content());
         note.setCategory(category);
-        note.setUrl_address(noteDTO.url_address());
+        note.setUrlAddress(noteDTO.url_address());
         note.setFavorite(note.isFavorite());
         note.setAccounts(accounts);
         note.setCreationDate(time);
-        note.setModification_date(time);
+        note.setModificationDate(time);
 
 
         notesRepository.save(note);
@@ -73,7 +74,7 @@ public class NotesService {
 
         for (TagDTO temp : noteDTO.tags()) {
             Tags toSave = new Tags();
-            toSave.setAccount_id(tagHelper.getAccounts().getAccountId());
+            toSave.setAccountId(tagHelper.getAccounts().getAccountId());
             toSave.setNoteId(tagHelper.getNoteId());
             toSave.setDescription(temp.name());
             tagsRepository.save(toSave);
@@ -86,7 +87,7 @@ public class NotesService {
     public NotesDTO putNote(NotesDTO note) {
         Category category = categoryRepository.findByName(note.category().getName()).orElseThrow();
         Notes noteToUpdate = notesRepository.findById(note.id()).orElseThrow();
-        if (!noteToUpdate.getUrl_address().equals(note.url_address()))
+        if (!noteToUpdate.getUrlAddress().equals(note.url_address()))
         {
             if(notesRepository.existsByUrlAddress(note.url_address()))
             {
@@ -97,8 +98,8 @@ public class NotesService {
 
         noteToUpdate.setContent(note.content());
         noteToUpdate.setTitle(note.title());
-        noteToUpdate.setModification_date(LocalDateTime.now());
-        noteToUpdate.setUrl_address(note.url_address());
+        noteToUpdate.setModificationDate(LocalDateTime.now());
+        noteToUpdate.setUrlAddress(note.url_address());
         noteToUpdate.setCategory(category);
         noteToUpdate.setFavorite(note.favorite());
 
@@ -109,7 +110,7 @@ public class NotesService {
             Tags toSave = new Tags();
 
             toSave.setNoteId(noteToUpdate.getNoteId());
-            toSave.setAccount_id(noteToUpdate.getAccounts().getAccountId());
+            toSave.setAccountId(noteToUpdate.getAccounts().getAccountId());
             toSave.setDescription(temp.name());
             tagsRepository.save(toSave);
         }
@@ -136,14 +137,14 @@ public class NotesService {
         note.setContent(originalNote.getContent());
         note.setTitle(originalNote.getTitle());
         note.setAccounts(accounts);
-        note.setModification_date(LocalDateTime.now());
+        note.setModificationDate(LocalDateTime.now());
         note.setCreationDate(originalNote.getCreationDate());
         String generatedUrl = UUID.randomUUID().toString();
-        note.setUrl_address(generatedUrl);
+        note.setUrlAddress(generatedUrl);
         notesRepository.save(note);
 
         Tags toSave = new Tags();
-        toSave.setAccount_id(accounts.getAccountId());
+        toSave.setAccountId(accounts.getAccountId());
         toSave.setNoteId(note.getNoteId());
         toSave.setDescription("shared");
         tagsRepository.save(toSave);
@@ -156,14 +157,14 @@ public class NotesService {
         noteCopied.setContent(noteToCopy.getContent());
         noteCopied.setTitle(noteToCopy.getTitle());
         noteCopied.setAccounts(accounts);
-        noteCopied.setModification_date(LocalDateTime.now());
+        noteCopied.setModificationDate(LocalDateTime.now());
         noteCopied.setCreationDate(LocalDateTime.now());
         String generatedUrl = UUID.randomUUID().toString();
-        noteCopied.setUrl_address(generatedUrl);
+        noteCopied.setUrlAddress(generatedUrl);
         notesRepository.save(noteCopied);
 
         Tags toSave = new Tags();
-        toSave.setAccount_id(accounts.getAccountId());
+        toSave.setAccountId(accounts.getAccountId());
         toSave.setNoteId(noteCopied.getNoteId());
         toSave.setDescription("copied");
         tagsRepository.save(toSave);

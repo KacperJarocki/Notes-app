@@ -1,4 +1,4 @@
-package Projektbdio.auth;
+package server.auth;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

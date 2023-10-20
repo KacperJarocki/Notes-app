@@ -1,4 +1,4 @@
-package Projektbdio.EmailContactForm;
+package server.form;
 
 public class EmailMessage {
     String from;

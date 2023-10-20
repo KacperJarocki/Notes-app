@@ -1,17 +1,17 @@
-package Projektbdio.repository;
+package server.repository;
 
 
-import Projektbdio.model.Account_Type;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import server.model.AccountType;
 
 import java.util.Optional;
 
 @Repository
-public interface AccountTypeRespository extends JpaRepository <Account_Type,Integer> {
+public interface AccountTypeRespository extends JpaRepository <AccountType,Integer> {
 
 
-    Account_Type findByName(String name);
+    AccountType findByName(String name);
 
 
 }

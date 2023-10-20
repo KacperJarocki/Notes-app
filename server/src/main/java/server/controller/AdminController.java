@@ -1,15 +1,14 @@
-package Projektbdio.controller;
+package server.controller;
 
 
-import Projektbdio.auth.AuthenticationService;
-import Projektbdio.auth.RegisterRequest;
-import Projektbdio.model.Accounts;
-import Projektbdio.model.Role;
-import Projektbdio.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import server.auth.AuthenticationService;
+import server.auth.RegisterRequest;
+import server.model.Accounts;
+import server.service.AdminService;
 
 import java.util.List;
 import java.util.Map;

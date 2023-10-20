@@ -1,4 +1,4 @@
-package Projektbdio.Requests;
+package server.Requests;
 
 import lombok.Getter;
 import lombok.Setter;

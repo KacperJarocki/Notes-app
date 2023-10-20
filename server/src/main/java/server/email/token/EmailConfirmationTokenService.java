@@ -1,4 +1,4 @@
-package Projektbdio.email.EmailToken;
+package server.email.token;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -8,15 +8,15 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class ConfirmationTokenService {
+public class EmailConfirmationTokenService {
 
-    private final ConfirmationTokenRepository confirmationTokenRepository;
+    private final EmailConfirmationTokenRepository confirmationTokenRepository;
 
-    public void saveConfirmationToken(ConfirmationToken token) {
+    public void saveConfirmationToken(EmailConfirmationToken token) {
         confirmationTokenRepository.save(token);
     }
 
-    public Optional<ConfirmationToken> getToken(String token) {
+    public Optional<EmailConfirmationToken> getToken(String token) {
         return confirmationTokenRepository.findByToken(token);
     }
 

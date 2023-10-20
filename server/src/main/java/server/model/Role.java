@@ -1,4 +1,4 @@
-package Projektbdio.model;
+package server.model;
 
 public enum Role {
     USER,

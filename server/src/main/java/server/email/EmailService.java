@@ -1,4 +1,4 @@
-package Projektbdio.email;
+package server.email;
 
 import jakarta.mail.internet.MimeMessage;
 import lombok.AllArgsConstructor;

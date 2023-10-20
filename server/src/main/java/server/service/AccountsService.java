@@ -1,14 +1,14 @@
-package Projektbdio.service;
+package server.service;
 
-import Projektbdio.email.EmailToken.ConfirmationToken;
-import Projektbdio.email.EmailToken.ConfirmationTokenService;
-import Projektbdio.exceptions.RegisterRequestException;
-import Projektbdio.model.Accounts;
-import Projektbdio.repository.AccountsRepository;
+import server.email.token.EmailConfirmationToken;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import server.email.token.EmailConfirmationTokenService;
+import server.exceptions.RegisterRequestException;
+import server.model.Accounts;
+import server.repository.AccountsRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class AccountsService {
     public final AccountsRepository accountsRepository;
-    public final ConfirmationTokenService confirmationTokenService;
+    public final EmailConfirmationTokenService emailConfirmationTokenService;
     private final PasswordEncoder passwordEncoder;
     public List<Accounts> getAccounts() {return accountsRepository.findAll();}
     public Accounts getAccount(int id){return accountsRepository.findById(id).orElseThrow();}
@@ -43,14 +43,14 @@ public class AccountsService {
 
         String token = UUID.randomUUID().toString();
 
-        ConfirmationToken confirmationToken = new ConfirmationToken(
+        EmailConfirmationToken emailConfirmationToken = new EmailConfirmationToken(
                 token,
                 LocalDateTime.now(),
                 LocalDateTime.now().plusMinutes(15),
                 accounts
         );
-        confirmationTokenService.saveConfirmationToken(
-                confirmationToken);
+        emailConfirmationTokenService.saveConfirmationToken(
+                emailConfirmationToken);
         return token;
     }
 

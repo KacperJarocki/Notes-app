@@ -1,9 +1,9 @@
-package Projektbdio.Mapper;
+package server.Mapper;
 
-import Projektbdio.DTO.NotesDTO;
-import Projektbdio.model.Notes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import server.DTO.NotesDTO;
+import server.model.Notes;
 
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -19,8 +19,8 @@ public class NotesDTOMapper  implements Function<Notes, NotesDTO> {
                 note.getTitle(),
                 note.getContent(),
                 note.getAccounts().getNameUser(),
-                note.getModification_date(),
-                note.getUrl_address(),
+                note.getModificationDate(),
+                note.getUrlAddress(),
                 note.isFavorite(),
                 note.getCategory(),
                 note.getTags()

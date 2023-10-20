@@ -1,4 +1,4 @@
-package Projektbdio.model;
+package server.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -18,17 +18,16 @@ public class Notes {
     private String title;
     private String content;
     private LocalDateTime creationDate;
-    private LocalDateTime modification_date;
-    private String url_address;
+    private LocalDateTime modificationDate;
+    private String urlAddress;
     private boolean favorite;
     @ManyToOne
     @JoinColumn(name = "Category_id")
-    private Category category;//todo:create dto for cateory
+    private Category category;
     @ManyToOne
     @JoinColumn(name = "account_id")
     private Accounts accounts;
     @OneToMany()
     @JoinColumn(name = "note_id")
-    private List<Tags> Tags;//todo:create dto for tag
-
+    private List<Tags> tags;
 }

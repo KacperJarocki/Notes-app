@@ -1,4 +1,4 @@
-package Projektbdio.exceptions;
+package server.exceptions;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

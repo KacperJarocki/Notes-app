@@ -1,4 +1,4 @@
-package Projektbdio.EmailContactForm;
+package server.form;
 
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;

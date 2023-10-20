@@ -1,11 +1,10 @@
-package Projektbdio.email.EmailToken;
+package server.email.token;
 
-import Projektbdio.model.Accounts;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.context.annotation.Bean;
+import server.model.Accounts;
 
 import java.time.LocalDateTime;
 
@@ -13,7 +12,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @Entity
-public class ConfirmationToken {
+public class EmailConfirmationToken {
 
     @SequenceGenerator(
             name = "confirmation_token_seq",
@@ -46,10 +45,10 @@ public class ConfirmationToken {
     )
     private Accounts accounts;
 
-    public ConfirmationToken(String token,
-                             LocalDateTime createdAt,
-                             LocalDateTime expiresAt,
-                             Accounts accounts) {
+    public EmailConfirmationToken(String token,
+                                  LocalDateTime createdAt,
+                                  LocalDateTime expiresAt,
+                                  Accounts accounts) {
         this.token = token;
         this.createdAt = createdAt;
         this.expiresAt = expiresAt;

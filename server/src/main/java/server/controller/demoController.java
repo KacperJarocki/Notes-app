@@ -1,4 +1,4 @@
-package Projektbdio.controller;
+package server.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;

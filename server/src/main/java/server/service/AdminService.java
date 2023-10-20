@@ -1,21 +1,21 @@
-package Projektbdio.service;
+package server.service;
 
-import Projektbdio.auth.AuthenticationResponse;
-import Projektbdio.auth.JwtService;
-import Projektbdio.auth.RegisterRequest;
-import Projektbdio.email.EmailSender;
-import Projektbdio.email.EmailToken.ConfirmationTokenService;
-import Projektbdio.exceptions.RegisterRequestException;
-import Projektbdio.model.Account_Type;
-import Projektbdio.model.Accounts;
-import Projektbdio.model.Role;
-import Projektbdio.repository.AccountTypeRespository;
-import Projektbdio.repository.AccountsRepository;
-import Projektbdio.repository.NotesRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import server.auth.AuthenticationResponse;
+import server.auth.JwtService;
+import server.auth.RegisterRequest;
+import server.email.EmailSender;
+import server.email.token.EmailConfirmationTokenService;
+import server.exceptions.RegisterRequestException;
+import server.model.AccountType;
+import server.model.Accounts;
+import server.model.Role;
+import server.repository.AccountTypeRespository;
+import server.repository.AccountsRepository;
+import server.repository.NotesRepository;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -25,7 +25,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class AdminService {
     private final AccountsRepository accountsRepository;
-    private final ConfirmationTokenService confirmationTokenService;
+    private final EmailConfirmationTokenService emailConfirmationTokenService;
     private final PasswordEncoder passwordEncoder;
     private final AccountsService accountsService;
     private final JwtService jwtService;
@@ -39,7 +39,7 @@ public class AdminService {
 
     public Map<String, Object> getAccountById(int id){return accountsRepository.findAccountById(id);}
     public Accounts postAccount(RegisterRequest request) {
-        Account_Type accountType = accountTypeRespository.findByName(request.getAccountTypeName());
+        AccountType accountType = accountTypeRespository.findByName(request.getAccountTypeName());
         var user = Accounts.builder()
                 .nameUser(request.getUser_name())
                 .email(request.getEmail())

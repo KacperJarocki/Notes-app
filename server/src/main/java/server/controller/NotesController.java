@@ -1,11 +1,11 @@
-package Projektbdio.controller;
+package server.controller;
 
-import Projektbdio.DTO.NotesDTO;
-import Projektbdio.model.Accounts;
-import Projektbdio.service.NotesService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import server.DTO.NotesDTO;
+import server.model.Accounts;
+import server.service.NotesService;
 
 import java.util.List;
 

@@ -1,6 +1,7 @@
-package Projektbdio.DTO;
+package server.DTO;
 
-import Projektbdio.model.Category;
+
+import server.model.Category;
 
 import java.time.LocalDateTime;
 import java.util.List;

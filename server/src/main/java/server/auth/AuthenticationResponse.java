@@ -1,7 +1,7 @@
-package Projektbdio.auth;
+package server.auth;
 
-import Projektbdio.model.Role;
 import lombok.*;
+import server.model.Role;
 
 @Data
 @NoArgsConstructor

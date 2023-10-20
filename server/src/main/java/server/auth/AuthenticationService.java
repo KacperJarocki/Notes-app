@@ -1,15 +1,5 @@
-package Projektbdio.auth;
+package server.auth;
 
-import Projektbdio.email.EmailSender;
-import Projektbdio.email.EmailToken.ConfirmationToken;
-import Projektbdio.email.EmailToken.ConfirmationTokenService;
-import Projektbdio.exceptions.RegisterRequestException;
-import Projektbdio.model.Account_Type;
-import Projektbdio.model.Role;
-import Projektbdio.model.Accounts;
-import Projektbdio.repository.AccountTypeRespository;
-import Projektbdio.repository.AccountsRepository;
-import Projektbdio.service.AccountsService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,6 +7,16 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import server.email.EmailSender;
+import server.email.token.EmailConfirmationToken;
+import server.email.token.EmailConfirmationTokenService;
+import server.exceptions.RegisterRequestException;
+import server.model.AccountType;
+import server.model.Accounts;
+import server.model.Role;
+import server.repository.AccountTypeRespository;
+import server.repository.AccountsRepository;
+import server.service.AccountsService;
 
 
 import java.time.LocalDate;
@@ -30,11 +30,11 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
     private final EmailSender emailSender;
-    private final ConfirmationTokenService confirmationTokenService;
+    private final EmailConfirmationTokenService emailConfirmationTokenService;
     private final AccountsService accountsService;
     private final AccountTypeRespository accountTypeRespository;
     public AuthenticationResponse register(RegisterRequest request) {
-        Account_Type accountType = accountTypeRespository.findByName(request.getAccountTypeName());
+        AccountType accountType = accountTypeRespository.findByName(request.getAccountTypeName());
         var user = Accounts.builder()
                 .nameUser(request.getUser_name())
                 .email(request.getEmail())
@@ -96,7 +96,7 @@ public class AuthenticationService {
     }
     @Transactional
     public String confirmToken(String token) {
-        ConfirmationToken confirmationToken = confirmationTokenService
+        EmailConfirmationToken confirmationToken = emailConfirmationTokenService
                 .getToken(token)
                 .orElseThrow(() ->
                          new RegisterRequestException("token not found",HttpStatus.BAD_REQUEST));
@@ -111,7 +111,7 @@ public class AuthenticationService {
             throw new RegisterRequestException("Token expired",HttpStatus.BAD_REQUEST);
         }
 
-        confirmationTokenService.setConfirmedAt(token);
+        emailConfirmationTokenService.setConfirmedAt(token);
         accountsService.enableAccounts(
                 confirmationToken.getAccounts().getEmail());
         return "confirmed";

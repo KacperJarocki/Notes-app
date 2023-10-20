@@ -1,4 +1,4 @@
-package Projektbdio.EmailContactForm;
+package server.form;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

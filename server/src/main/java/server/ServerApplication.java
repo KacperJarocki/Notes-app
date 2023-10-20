@@ -1,4 +1,4 @@
-package Projektbdio;
+package server;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -9,10 +9,10 @@ import org.springframework.context.annotation.Bean;
 import java.util.Arrays;
 
 @SpringBootApplication
-public class ProjektBdioApplication {
+public class ServerApplication{
 
 	public static void main(String[] args) {
-		SpringApplication.run(ProjektBdioApplication.class, args);
+		SpringApplication.run(ServerApplication.class, args);
 	}
 	@Bean
 	public CommandLineRunner commandLineRunner(ApplicationContext ctx) {

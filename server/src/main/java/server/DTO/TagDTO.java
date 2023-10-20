@@ -1,4 +1,4 @@
-package Projektbdio.DTO;
+package server.DTO;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.annotation.JsonCreator;
