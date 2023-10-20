@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface AccountTypeRespository extends JpaRepository <Account_Type,Integer> {
 
 
-    Account_Type findByName(String Name);
+    Account_Type findByName(String name);
 
 
 }

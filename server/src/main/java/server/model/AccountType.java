@@ -1,18 +1,18 @@
-package Projektbdio.model;
+package server.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name="Account_Type")
+@Table(name="AccountType")
 @Getter
 @Setter
-public class Account_Type {
+public class AccountType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int account_type_id;
+    private int accountTypeId;
     private String name;
-    private int number_of_notes;
-    private boolean url_edit;
+    private int numberOfNotes;
+    private boolean urlEdit;
 }
