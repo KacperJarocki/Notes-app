@@ -1,7 +1,12 @@
-name: Angular Testing
+name: Angular build
 
 on:
   push:
+    branches:
+      - main
+      - dev
+      - prod
+  pull_request:
     branches:
       - main
       - dev
