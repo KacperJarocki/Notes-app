@@ -1,7 +1,12 @@
-name: Spring Boot Tests with Database
+name: Spring boot test
 
 on:
   push:
+    branches:
+      - main
+      - dev
+      - prod
+  pull_request:
     branches:
       - main
       - dev

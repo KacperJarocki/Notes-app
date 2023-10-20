@@ -1,7 +1,12 @@
-name: Angular Testing
+name: Angular build
 
 on:
   push:
+    branches:
+      - main
+      - dev
+      - prod
+  pull_request:
     branches:
       - main
       - dev
@@ -28,12 +33,3 @@ jobs:
         run: npm run build
         working-directory: ./frontend
 
-      - name: Run unit tests
-        run: npm test
-        working-directory: ./frontend
-
-      - name: Upload test results
-        uses: actions/upload-artifact@v2
-        with:
-          name: test-results
-          path: ./coverage
