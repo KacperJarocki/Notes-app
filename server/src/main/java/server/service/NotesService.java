@@ -90,17 +90,13 @@ public class NotesService {
 			}
 		}
 		tagsRepository.deleteByNoteId(noteToUpdate.getNoteId());
-
 		noteToUpdate.setContent(note.content());
 		noteToUpdate.setTitle(note.title());
 		noteToUpdate.setModificationDate(LocalDateTime.now());
 		noteToUpdate.setUrlAddress(note.url_address());
 		noteToUpdate.setCategory(category);
 		noteToUpdate.setFavorite(note.favorite());
-
 		notesRepository.save(noteToUpdate);
-
-
 		for (TagDTO temp : note.tags()) {
 			Tags toSave = new Tags();
 
