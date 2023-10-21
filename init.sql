@@ -1,3 +1,7 @@
+CREATE TABLE Url_Addresses(
+            url_id serial primary key,
+            url_address varchar(200) UNIQUE
+);
 --Table Account_type
 CREATE TABLE Account_Type(
                              account_type_id SERIAL PRIMARY KEY,
@@ -19,10 +23,20 @@ CREATE TABLE Accounts(
                          url_activation VARCHAR(100),
                          FOREIGN KEY (account_type_id) REFERENCES Account_type(account_type_id)
 );
--- --Table Category
+--Table Category
 CREATE TABLE Category(
                          category_id SERIAL PRIMARY KEY,
                          name VARCHAR(50) NOT NULL UNIQUE
+);
+
+CREATE TABLE Spaces(
+                  space_id SERIAL PRIMARY KEY,
+                  space_creator_id INT,
+                  title VARCHAR(40),
+                  modification_date TIMESTAMP NOT NULL,
+                  url_address_id Int,
+                  FOREIGN key(space_creator_id) REFERENCES accounts(account_id),
+                  FOREIGN key(url_address_id) REFERENCES url_addresses(url_id)
 );
 
 --Table Notes
@@ -34,12 +48,25 @@ CREATE TABLE Notes(
                       category_id INT,
                       account_id INT,
                       modification_date TIMESTAMP NOT NULL,
-                      url_address VARCHAR(100) UNIQUE NOT NULL,
                       favorite BOOLEAN NOT NULL DEFAULT FALSE,
+                      url_address_id int,
+                      space_id int,
+                      FOREIGN KEY (space_id) REFERENCES Spaces(space_id), 
                       FOREIGN KEY (category_id) REFERENCES category(category_id),
+                      FOREIGN key (url_address_id) REFERENCES url_addresses(url_id),
                       FOREIGN KEY (account_id) REFERENCES accounts(account_id)
 );
 
+
+CREATE TABLE Space_accesses(
+            access_id serial primary key,
+            space_id int,
+            account_id int,
+            read BOOLEAN NOT NULL,
+            write BOOLEAN NOT NULL,
+            FOREIGN KEY(space_id) REFERENCES Spaces(space_id),
+            FOREIGN KEY(account_id) REFERENCES Accounts(account_id)
+);
 CREATE SEQUENCE confirmation_token_seq;
 CREATE TABLE Confirmation_token(
                                   id INTEGER NOT NULL DEFAULT nextval('confirmation_token_seq'),
